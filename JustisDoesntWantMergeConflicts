@@ -29,4 +29,26 @@ for i in range (0,predictions.size):
 Accuracy=(Correct/Total)*100
 print("Accuracy: ",Accuracy,"%")
 
+print("Linear Kernel Segment Validation")
+X = validation_data #reducing elements in here to run faster, CHANGE THIS
+y = validation_label#change this
+y = np.ravel(y)
 
+clf = SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='auto', kernel='linear',
+    max_iter=-1, probability=False, random_state=None, shrinking=True,
+    tol=0.001, verbose=False)
+clf.fit(X, y)
+#Currently Set to Linear Kernel (1st Problem)
+#For 2nd problem, kernel='rbf' and gamma=1, possibly .1 according to piazza
+#For 3rd problem, set gamma to 'auto'
+#For 4th problem, set C=10,20,30...100 and record all values. Remove prints and run SVC 10x
+predictions=clf.predict(X)
+Correct=0
+Total=predictions.size
+for i in range (0,predictions.size):
+    if(predictions[i] == y[i]):
+        Correct = Correct + 1
+
+Accuracy=(Correct/Total)*100
+print("Accuracy: ",Accuracy,"%")
