@@ -109,12 +109,25 @@ def blrObjFunction(initialWeights, *args):
     n_features = train_data.shape[1]
     error = 0
     error_grad = np.zeros((n_features + 1, 1))
-
+    
     ##################
     # YOUR CODE HERE #
     ##################
     # HINT: Do not forget to add the bias term to your input data
 
+    #error_grad
+    run_sum = np.zeros((n_features + 1, 1))
+    for i in range(0,n_data):
+        x_bias = np.hstack((1,train_data[i]))
+        
+        theta = sigmoid(np.dot(initialWeights,x_bias))
+        
+        error_i = np.multiply((theta - labeli[i][0]),np.transpose(x_bias))
+        error_i = error_i.reshape(error_i.shape[0],1)
+        run_sum = np.add(run_sum,error_i)
+    error_grad = run_sum/n_data
+    error_grad =np.squeeze(np.asarray(error_grad))
+    
     # Error
     for n in range(0,n_data):
         appended_data = np.hstack((1, train_data[n]));
@@ -124,7 +137,7 @@ def blrObjFunction(initialWeights, *args):
         error += (first_part + second_part)
         
     error /= -1 * n_data
-    print(error)
+    
     return error, error_grad
 
 
@@ -151,6 +164,7 @@ def blrPredict(W, data):
     # HINT: Do not forget to add the bias term to your input data
     
     for i in range(0, data.shape[0]):
+        print(i)
         x_bias = np.hstack((1, data[i]))
         for j in range(0, W.shape[1]):
             c1 = sigmoid(np.dot(W[:,j], x_bias))
