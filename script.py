@@ -115,6 +115,16 @@ def blrObjFunction(initialWeights, *args):
     ##################
     # HINT: Do not forget to add the bias term to your input data
 
+    # Error
+    for n in range(0,n_data):
+        appended_data = np.hstack((1, train_data[n]));
+        theta_n = sigmoid(np.dot(initialWeights,appended_data))
+        first_part = labeli[n] * np.log(theta_n)
+        second_part = (1 - labeli[n]) * np.log(1 - theta_n)
+        error += (first_part + second_part)
+        
+    error /= -1 * n_data
+    print(error)
     return error, error_grad
 
 
@@ -139,6 +149,8 @@ def blrPredict(W, data):
     # YOUR CODE HERE #
     ##################
     # HINT: Do not forget to add the bias term to your input data
+
+    
 
     return label
 
