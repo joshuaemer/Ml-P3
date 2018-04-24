@@ -136,7 +136,7 @@ def blrPredict(W, data):
      Input:
          W: the matrix of weight of size (D + 1) x 10. Each column is the weight 
          vector of a Logistic Regression classifier.
-         X: the data matrix of size N x D
+         data: the data matrix of size N x D
          
      Output: 
          label: vector of size N x 1 representing the predicted label of 
@@ -149,8 +149,19 @@ def blrPredict(W, data):
     # YOUR CODE HERE #
     ##################
     # HINT: Do not forget to add the bias term to your input data
-
     
+    for i in range(0, data.shape[0]):
+        x_bias = np.hstack((1, data[i]))
+        for j in range(0, W.shape[1]):
+            c1 = sigmoid(np.dot(W[:,j], x_bias))
+            c2 = 1 - c1
+            y = 0
+            if c1 > c2:
+                y = j
+                label[i] = y
+                break;
+            else:
+                y = 0
 
     return label
 
