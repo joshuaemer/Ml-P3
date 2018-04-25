@@ -164,7 +164,7 @@ def blrPredict(W, data):
     # HINT: Do not forget to add the bias term to your input data
     
     for i in range(0, data.shape[0]):
-        print(i)
+        
         x_bias = np.hstack((1, data[i]))
         for j in range(0, W.shape[1]):
             c1 = sigmoid(np.dot(W[:,j], x_bias))

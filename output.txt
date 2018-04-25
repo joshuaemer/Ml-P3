@@ -1,0 +1,7 @@
+Problem 1:
+
+ Training set Accuracy:86.82600000000001%
+
+ Validation set Accuracy:85.53%
+
+ Testing set Accuracy:86.41%
