@@ -206,6 +206,16 @@ def mlrObjFunction(params, *args):
     ##################
     # HINT: Do not forget to add the bias term to your input data
 
+    
+    trans_weights = np.transpose(initialWeights_b)
+    for n in range(0, n_data):
+        x_bias = np.hstack((1, train_data[n]))
+        for k in range(0, n_class):
+            error += Y[n][k] * np.log(sigmoid(np.dot(trans_weights[k], x_bias)))
+            
+    error *= -1
+    print(error)
+    
     return error, error_grad
 
 
@@ -217,7 +227,7 @@ def mlrPredict(W, data):
      Input:
          W: the matrix of weight of size (D + 1) x 10. Each column is the weight
          vector of a Logistic Regression classifier.
-         X: the data matrix of size N x D
+         data: the data matrix of size N x D
 
      Output:
          label: vector of size N x 1 representing the predicted label of
@@ -230,6 +240,11 @@ def mlrPredict(W, data):
     # YOUR CODE HERE #
     ##################
     # HINT: Do not forget to add the bias term to your input data
+
+    for n in range(0, data.shape[0]):
+        x_bias = np.hstack((1, data[n]))
+        for k in range(0, 10):
+            
 
     return label
 
@@ -253,26 +268,26 @@ for i in range(n_class):
     Y[:, i] = (train_label == i).astype(int).ravel()
 
 # Logistic Regression with Gradient Descent
-W = np.zeros((n_feature + 1, n_class))
-initialWeights = np.zeros((n_feature + 1, 1))
-opts = {'maxiter': 100}
-for i in range(n_class):
-    labeli = Y[:, i].reshape(n_train, 1)
-    args = (train_data, labeli)
-    nn_params = minimize(blrObjFunction, initialWeights, jac=True, args=args, method='CG', options=opts)
-    W[:, i] = nn_params.x.reshape((n_feature + 1,))
+#W = np.zeros((n_feature + 1, n_class))
+#initialWeights = np.zeros((n_feature + 1, 1))
+#opts = {'maxiter': 100}
+#for i in range(n_class):
+#    labeli = Y[:, i].reshape(n_train, 1)
+#    args = (train_data, labeli)
+#    nn_params = minimize(blrObjFunction, initialWeights, jac=True, args=args, method='CG', options=opts)
+#    W[:, i] = nn_params.x.reshape((n_feature + 1,))
 
 # Find the accuracy on Training Dataset
-predicted_label = blrPredict(W, train_data)
-print('\n Training set Accuracy:' + str(100 * np.mean((predicted_label == train_label).astype(float))) + '%')
+#predicted_label = blrPredict(W, train_data)
+#print('\n Training set Accuracy:' + str(100 * np.mean((predicted_label == train_label).astype(float))) + '%')
 
 # Find the accuracy on Validation Dataset
-predicted_label = blrPredict(W, validation_data)
-print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == validation_label).astype(float))) + '%')
+#predicted_label = blrPredict(W, validation_data)
+#print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == validation_label).astype(float))) + '%')
 
 # Find the accuracy on Testing Dataset
-predicted_label = blrPredict(W, test_data)
-print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
+#predicted_label = blrPredict(W, test_data)
+#print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
 
 """
 Script for Support Vector Machine
