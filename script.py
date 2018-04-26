@@ -205,8 +205,26 @@ def mlrObjFunction(params, *args):
     # YOUR CODE HERE #
     ##################
     # HINT: Do not forget to add the bias term to your input data
-
+    #Error Grad
+    for k in range(0,initialWeights_b.shape[1]):
+        run_sum = np.zeros((1,n_feature + 1))
+        for i in range(0, n_data):
+            x_bias = np.hstack((1,train_data[i,:]))
+            
+            wk = initialWeights_b[:,k]
+            
+            
+            theta = sigmoid(np.dot(wk,x_bias))
+            
+            run_sum = np.add(run_sum,np.multiply((theta -Y[i][k]),x_bias))
+        print(k)    
+        error_grad[:,k] = run_sum
+            
+        
     
+    
+    
+    #Error
     trans_weights = np.transpose(initialWeights_b)
     for n in range(0, n_data):
         x_bias = np.hstack((1, train_data[n]))
