@@ -244,7 +244,7 @@ def mlrPredict(W, data):
     for n in range(0, data.shape[0]):
         x_bias = np.hstack((1, data[n]))
         for k in range(0, 10):
-            
+            numerator = np.exp(np.dot(W[k], x_bias))
 
     return label
 
