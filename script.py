@@ -261,8 +261,15 @@ def mlrPredict(W, data):
 
     for n in range(0, data.shape[0]):
         x_bias = np.hstack((1, data[n]))
+        max_val = -1
+        max_index = 0
         for k in range(0, 10):
-            numerator = np.exp(np.dot(W[k], x_bias))
+            num = np.exp(np.dot(W[:,k], x_bias))
+            if num > max_val:
+                max_val = num
+                max_index = k
+        label[n] = max_index
+            
 
     return label
 
