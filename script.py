@@ -170,7 +170,7 @@ def blrPredict(W, data):
             c1 = sigmoid(np.dot(W[:,j], x_bias))
             c2 = 1 - c1
             y = 0
-            if c1 >= c2:
+            if c1 > c2:
                 y = j
                 label[i] = y
                 break;
@@ -217,7 +217,7 @@ def mlrObjFunction(params, *args):
             theta = sigmoid(np.dot(wk,x_bias))
             
             run_sum = np.add(run_sum,np.multiply((theta -Y[i][k]),x_bias))
-        print(k)    
+          
         error_grad[:,k] = run_sum
             
         
@@ -232,8 +232,8 @@ def mlrObjFunction(params, *args):
             error += Y[n][k] * np.log(sigmoid(np.dot(trans_weights[k], x_bias)))
             
     error *= -1
-    print(error)
     
+    error_grad = np.ravel(error_grad)
     return error, error_grad
 
 
@@ -291,7 +291,7 @@ n_feature = train_data.shape[1]
 Y = np.zeros((n_train, n_class))
 for i in range(n_class):
     Y[:, i] = (train_label == i).astype(int).ravel()
-
+"""
 # Logistic Regression with Gradient Descent
 print("Logistic Regression with Gradient Descent")
 W = np.zeros((n_feature + 1, n_class))
@@ -309,12 +309,12 @@ print('\n Training set Accuracy:' + str(100 * np.mean((predicted_label == train_
 
 # Find the accuracy on Validation Dataset
 predicted_label = blrPredict(W, validation_data)
-#print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == validation_label).astype(float))) + '%')
+print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == validation_label).astype(float))) + '%')
 
 # Find the accuracy on Testing Dataset
 predicted_label = blrPredict(W, test_data)
 print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
-
+"""
 """
 Script for Support Vector Machine
 """
