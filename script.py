@@ -283,8 +283,8 @@ def mlrPredict(W, data):
 """
 Script for Logistic Regression
 """
-start_time = time.time()
-print('\n Mlr time:' +str(time.time()- start_time))
+
+
 
 
 train_data, train_label, validation_data, validation_label, test_data, test_label = preprocess()
