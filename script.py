@@ -180,7 +180,7 @@ def blrPredict(W, data):
     return label
 
 
-def mlrObjFunction(params, *args):
+def mlrObjFunction(initialWeights_b,params, *args):
     """
     mlrObjFunction computes multi-class Logistic Regression error function and
     its gradient.
@@ -206,6 +206,7 @@ def mlrObjFunction(params, *args):
     ##################
     # HINT: Do not forget to add the bias term to your input data
     #Error Grad
+    initialWeights_b = initialWeights_b.reshape((n_feature + 1, n_class))
     for k in range(0,initialWeights_b.shape[1]):
         run_sum = np.zeros((1,n_feature + 1))
         for i in range(0, n_data):
@@ -214,7 +215,7 @@ def mlrObjFunction(params, *args):
             wk = initialWeights_b[:,k]
             
             
-            theta = sigmoid(np.dot(wk,x_bias))
+            theta = sigmoid(np.dot(np.transpose(wk),x_bias))
             
             run_sum = np.add(run_sum,np.multiply((theta -Y[i][k]),x_bias))
           
@@ -234,6 +235,7 @@ def mlrObjFunction(params, *args):
     error *= -1
     
     error_grad = np.ravel(error_grad)
+    
     return error, error_grad
 
 
