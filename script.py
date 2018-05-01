@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.io import loadmat
 from scipy.optimize import minimize
+import time
 
 
 def preprocess():
@@ -180,7 +181,10 @@ def blrPredict(W, data):
     return label
 
 
-def mlrObjFunction(initialWeights_b,params, *args):
+def mlrObjFunction(params, *args):
+    initialWeights_b = params
+    train_data, labeli = args
+    
     """
     mlrObjFunction computes multi-class Logistic Regression error function and
     its gradient.
@@ -217,7 +221,7 @@ def mlrObjFunction(initialWeights_b,params, *args):
             
             theta = sigmoid(np.dot(np.transpose(wk),x_bias))
             
-            run_sum = np.add(run_sum,np.multiply((theta -Y[i][k]),x_bias))
+            run_sum = np.add(run_sum,np.multiply((theta -labeli[i][k]),x_bias))
           
         error_grad[:,k] = run_sum
             
@@ -230,12 +234,12 @@ def mlrObjFunction(initialWeights_b,params, *args):
     for n in range(0, n_data):
         x_bias = np.hstack((1, train_data[n]))
         for k in range(0, n_class):
-            error += Y[n][k] * np.log(sigmoid(np.dot(trans_weights[k], x_bias)))
+            error += labeli[n][k] * np.log(sigmoid(np.dot(trans_weights[k], x_bias)))
             
     error *= -1
     
     error_grad = np.ravel(error_grad)
-    
+    print("this ran")
     return error, error_grad
 
 
@@ -279,6 +283,10 @@ def mlrPredict(W, data):
 """
 Script for Logistic Regression
 """
+start_time = time.time()
+print('\n Mlr time:' +str(time.time()- start_time))
+
+
 train_data, train_label, validation_data, validation_label, test_data, test_label = preprocess()
 
 # number of classes
@@ -293,11 +301,12 @@ n_feature = train_data.shape[1]
 Y = np.zeros((n_train, n_class))
 for i in range(n_class):
     Y[:, i] = (train_label == i).astype(int).ravel()
-"""
+
 # Logistic Regression with Gradient Descent
 print("Logistic Regression with Gradient Descent")
 W = np.zeros((n_feature + 1, n_class))
 initialWeights = np.zeros((n_feature + 1, 1))
+start_time = time.time()
 opts = {'maxiter': 100}
 for i in range(n_class):
     labeli = Y[:, i].reshape(n_train, 1)
@@ -316,7 +325,7 @@ print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == vali
 # Find the accuracy on Testing Dataset
 predicted_label = blrPredict(W, test_data)
 print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
-"""
+print('\n Blr time:' + str(time.time()- start_time))
 """
 Script for Support Vector Machine
 """
@@ -336,6 +345,8 @@ W_b = np.zeros((n_feature + 1, n_class))
 initialWeights_b = np.zeros((n_feature + 1, n_class))
 opts_b = {'maxiter': 100}
 
+start_time = time.time()
+
 args_b = (train_data, Y)
 nn_params = minimize(mlrObjFunction, initialWeights_b, jac=True, args=args_b, method='CG', options=opts_b)
 W_b = nn_params.x.reshape((n_feature + 1, n_class))
@@ -351,3 +362,4 @@ print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label_b == va
 # Find the accuracy on Testing Dataset
 predicted_label_b = mlrPredict(W_b, test_data)
 print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label_b == test_label).astype(float))) + '%')
+print('\n Mlr time:' + str(time.time()- start_time))
