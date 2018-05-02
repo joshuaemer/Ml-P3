@@ -204,6 +204,7 @@ def mlrObjFunction(params, *args):
     n_feature = train_data.shape[1]
     error = 0
     error_grad = np.zeros((n_feature + 1, n_class))
+    
 
     ##################
     # YOUR CODE HERE #
@@ -211,7 +212,7 @@ def mlrObjFunction(params, *args):
     # HINT: Do not forget to add the bias term to your input data
     #Error Grad
     initialWeights_b = initialWeights_b.reshape((n_feature + 1, n_class))
-    for k in range(0,initialWeights_b.shape[1]):
+    for k in range(0,n_class):
         run_sum = np.zeros((1,n_feature + 1))
         for i in range(0, n_data):
             x_bias = np.hstack((1,train_data[i,:]))
@@ -239,7 +240,7 @@ def mlrObjFunction(params, *args):
     error *= -1
     
     error_grad = np.ravel(error_grad)
-    print("this ran")
+    
     return error, error_grad
 
 
@@ -306,6 +307,7 @@ for i in range(n_class):
 print("Logistic Regression with Gradient Descent")
 W = np.zeros((n_feature + 1, n_class))
 initialWeights = np.zeros((n_feature + 1, 1))
+"""
 start_time = time.time()
 opts = {'maxiter': 100}
 for i in range(n_class):
@@ -326,6 +328,7 @@ print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == vali
 predicted_label = blrPredict(W, test_data)
 print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
 print('\n Blr time:' + str(time.time()- start_time))
+"""
 """
 Script for Support Vector Machine
 """
