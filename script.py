@@ -1,4 +1,5 @@
 import numpy as np
+import pickle
 from scipy.io import loadmat
 from scipy.optimize import minimize
 import time
@@ -307,7 +308,7 @@ for i in range(n_class):
 print("Logistic Regression with Gradient Descent")
 W = np.zeros((n_feature + 1, n_class))
 initialWeights = np.zeros((n_feature + 1, 1))
-"""
+
 start_time = time.time()
 opts = {'maxiter': 100}
 for i in range(n_class):
@@ -315,6 +316,8 @@ for i in range(n_class):
     args = (train_data, labeli)
     nn_params = minimize(blrObjFunction, initialWeights, jac=True, args=args, method='CG', options=opts)
     W[:, i] = nn_params.x.reshape((n_feature + 1,))
+
+pickle.dump( W, open( "params.pickle", "wb" ) )
 
 # Find the accuracy on Training Dataset
 predicted_label = blrPredict(W, train_data)
@@ -328,7 +331,7 @@ print('\n Validation set Accuracy:' + str(100 * np.mean((predicted_label == vali
 predicted_label = blrPredict(W, test_data)
 print('\n Testing set Accuracy:' + str(100 * np.mean((predicted_label == test_label).astype(float))) + '%')
 print('\n Blr time:' + str(time.time()- start_time))
-"""
+
 """
 Script for Support Vector Machine
 """
