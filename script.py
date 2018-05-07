@@ -3,6 +3,7 @@ import pickle
 from scipy.io import loadmat
 from scipy.optimize import minimize
 import time
+from sklearn.svm import SVC
 
 
 def preprocess():
@@ -337,10 +338,237 @@ Script for Support Vector Machine
 """
 
 print('\n\n--------------SVM-------------------\n\n')
-##################
-# YOUR CODE HERE #
-##################
+#Linear Kernel Segment#
+X = train_data #reducing elements in here to run faster, CHANGE THIS
+y = train_label#change this
+y = np.ravel(y)
+clf = SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='auto', kernel='linear',
+    max_iter=-1, probability=False, random_state=None, shrinking=True,
+    tol=0.001, verbose=True)
+clf.fit(X, y)
+predictions=clf.predict(X)
+Correct=0
+Total=predictions.size
+for i in range (0,predictions.size):
+    if(predictions[i] == y[i]):
+        Correct = Correct + 1
 
+Accuracy=(Correct/Total)*100
+print("Accuracy: ",Accuracy,"%")
+X = test_data #reducing elements in here to run faster, CHANGE THIS
+y = test_label#change this
+y = np.ravel(y)
+clf = SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='auto', kernel='linear',
+    max_iter=-1, probability=False, random_state=None, shrinking=True,
+    tol=0.001, verbose=True)
+clf.fit(X, y)
+predictions=clf.predict(X)
+Correct=0
+Total=predictions.size
+for i in range (0,predictions.size):
+    if(predictions[i] == y[i]):
+        Correct = Correct + 1
+
+Accuracy=(Correct/Total)*100
+print("Accuracy: ",Accuracy,"%")
+X = validation_data #reducing elements in here to run faster, CHANGE THIS
+y = validation_label#change this
+y = np.ravel(y)
+clf = SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='auto', kernel='linear',
+    max_iter=-1, probability=False, random_state=None, shrinking=True,
+    tol=0.001, verbose=True)
+clf.fit(X, y)
+predictions=clf.predict(X)
+Correct=0
+Total=predictions.size
+for i in range (0,predictions.size):
+    if(predictions[i] == y[i]):
+        Correct = Correct + 1
+
+Accuracy=(Correct/Total)*100
+print("Accuracy: ",Accuracy,"%")
+
+#Radial Bias segment with Gamma set to .1#
+X = train_data #reducing elements in here to run faster, CHANGE THIS
+y = train_label#change this
+y = np.ravel(y)
+clf = SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma=.1, kernel='rbf',
+    max_iter=-1, probability=False, random_state=None, shrinking=True,
+    tol=0.001, verbose=True)
+clf.fit(X, y)
+predictions=clf.predict(X)
+Correct=0
+Total=predictions.size
+for i in range (0,predictions.size):
+    if(predictions[i] == y[i]):
+        Correct = Correct + 1
+
+Accuracy=(Correct/Total)*100
+print("Accuracy: ",Accuracy,"%")
+X = test_data #reducing elements in here to run faster, CHANGE THIS
+y = test_label#change this
+y = np.ravel(y)
+clf = SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma=.1, kernel='rbf',
+    max_iter=-1, probability=False, random_state=None, shrinking=True,
+    tol=0.001, verbose=True)
+clf.fit(X, y)
+predictions=clf.predict(X)
+Correct=0
+Total=predictions.size
+for i in range (0,predictions.size):
+    if(predictions[i] == y[i]):
+        Correct = Correct + 1
+
+Accuracy=(Correct/Total)*100
+print("Accuracy: ",Accuracy,"%")
+X = validation_data #reducing elements in here to run faster, CHANGE THIS
+y = validation_label#change this
+y = np.ravel(y)
+clf = SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma=.1, kernel='rbf',
+    max_iter=-1, probability=False, random_state=None, shrinking=True,
+    tol=0.001, verbose=True)
+clf.fit(X, y)
+predictions=clf.predict(X)
+Correct=0
+Total=predictions.size
+for i in range (0,predictions.size):
+    if(predictions[i] == y[i]):
+        Correct = Correct + 1
+
+Accuracy=(Correct/Total)*100
+print("Accuracy: ",Accuracy,"%")
+#-------------------------------------#
+
+#Radial Bias Segment with default gamma value#
+X = train_data #reducing elements in here to run faster, CHANGE THIS
+y = train_label#change this
+y = np.ravel(y)
+clf = SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='auto', kernel='rbf',
+    max_iter=-1, probability=False, random_state=None, shrinking=True,
+    tol=0.001, verbose=True)
+clf.fit(X, y)
+predictions=clf.predict(X)
+Correct=0
+Total=predictions.size
+for i in range (0,predictions.size):
+    if(predictions[i] == y[i]):
+        Correct = Correct + 1
+
+Accuracy=(Correct/Total)*100
+print("Accuracy: ",Accuracy,"%")
+X = test_data #reducing elements in here to run faster, CHANGE THIS
+y = test_label#change this
+y = np.ravel(y)
+clf = SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='auto', kernel='rbf',
+    max_iter=-1, probability=False, random_state=None, shrinking=True,
+    tol=0.001, verbose=True)
+clf.fit(X, y)
+predictions=clf.predict(X)
+Correct=0
+Total=predictions.size
+for i in range (0,predictions.size):
+    if(predictions[i] == y[i]):
+        Correct = Correct + 1
+
+Accuracy=(Correct/Total)*100
+print("Accuracy: ",Accuracy,"%")
+X = validation_data #reducing elements in here to run faster, CHANGE THIS
+y = validation_label#change this
+y = np.ravel(y)
+clf = SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,
+    decision_function_shape='ovr', degree=3, gamma='auto', kernel='rbf',
+    max_iter=-1, probability=False, random_state=None, shrinking=True,
+    tol=0.001, verbose=True)
+clf.fit(X, y)
+predictions=clf.predict(X)
+Correct=0
+Total=predictions.size
+for i in range (0,predictions.size):
+    if(predictions[i] == y[i]):
+        Correct = Correct + 1
+
+Accuracy=(Correct/Total)*100
+print("Accuracy: ",Accuracy,"%")
+#------------------------------------#
+cvals = [1,10,20,30,40,50,60,70,80,90,100]
+for cvalue in cvals:
+    
+    print('\n\n--------------SVM-------------------\n\n')
+    print("Radial Bias Segment Train C=",cvalue)
+    X = train_data #reducing elements in here to run faster, CHANGE THIS
+    y = train_label#change this
+    y = np.ravel(y)
+    
+    clf = SVC(C=cvalue, cache_size=200, class_weight=None, coef0=0.0,
+        decision_function_shape='ovr', degree=3, gamma='auto', kernel='rbf',
+        max_iter=-1, probability=False, random_state=None, shrinking=True,
+        tol=0.001, verbose=True)
+    clf.fit(X, y)
+    predictions=clf.predict(X)
+    Correct=0
+    Total=predictions.size
+    for i in range (0,predictions.size):
+        if(predictions[i] == y[i]):
+            Correct = Correct + 1
+    
+    Accuracy=(Correct/Total)*100
+    print("Accuracy: ",Accuracy,"%")
+    
+    
+    print("Radial Bias Segment Validation C=",cvalue)
+    X = validation_data #reducing elements in here to run faster, CHANGE THIS
+    y = validation_label#change this
+    y = np.ravel(y)
+    
+    clf = SVC(C=cvalue, cache_size=200, class_weight=None, coef0=0.0,
+        decision_function_shape='ovr', degree=3, gamma='auto', kernel='rbf',
+        max_iter=-1, probability=False, random_state=None, shrinking=True,
+        tol=0.001, verbose=False)
+    clf.fit(X, y)
+    #Currently Set to Linear Kernel (1st Problem)
+    #For 2nd problem, kernel='rbf' and gamma=1, possibly .1 according to piazza
+    #For 3rd problem, set gamma to 'auto'
+    #For 4th problem, set C=10,20,30...100 and record all values. Remove prints and run SVC 10x
+    predictions=clf.predict(X)
+    Correct=0
+    Total=predictions.size
+    for i in range (0,predictions.size):
+        if(predictions[i] == y[i]):
+            Correct = Correct + 1
+    
+    Accuracy=(Correct/Total)*100
+    print("Accuracy: ",Accuracy,"%")
+    
+    print("Radial Bias Segment Testing C=",cvalue)
+    X = test_data #reducing elements in here to run faster, CHANGE THIS
+    y = test_label#change this
+    y = np.ravel(y)
+    
+    clf = SVC(C=cvalue, cache_size=200, class_weight=None, coef0=0.0,
+        decision_function_shape='ovr', degree=3, gamma='auto', kernel='rbf',
+        max_iter=-1, probability=False, random_state=None, shrinking=True,
+        tol=0.001, verbose=False)
+    clf.fit(X, y)
+    #Currently Set to Linear Kernel (1st Problem)
+    #For 2nd problem, kernel='rbf' and gamma=1, possibly .1 according to piazza
+    #For 3rd problem, set gamma to 'auto'
+    #For 4th problem, set C=10,20,30...100 and record all values. Remove prints and run SVC 10x
+    predictions=clf.predict(X)
+    Correct=0
+    Total=predictions.size
+    for i in range (0,predictions.size):
+        if(predictions[i] == y[i]):
+            Correct = Correct + 1
+    Accuracy=(Correct/Total)*100
+    print("Accuracy: ",Accuracy,"%")
 
 """
 Script for Extra Credit Part
